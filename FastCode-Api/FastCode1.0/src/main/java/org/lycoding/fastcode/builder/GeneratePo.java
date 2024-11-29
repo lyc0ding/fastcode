@@ -1,6 +1,7 @@
 package org.lycoding.fastcode.builder;
 
 import org.lycoding.fastcode.bean.Constants;
+import org.lycoding.fastcode.bean.FieldInfo;
 import org.lycoding.fastcode.bean.TableInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,11 @@ public class GeneratePo {
 
 //       创建pojo类
         List<TableInfo> tableList = TableBuilder.getTableList();
+        if (tableList.isEmpty()){
+            logger.warn("表内容为空！！");
+            return;
+        }
+
         for (TableInfo tableInfo : tableList) {
             Path beanPath = Paths.get(poPackagePath.toString()+ "/"+tableInfo.getBeanName() + Constants.JAVA_FILE_SUFFIX);
 //            bean文件不存在则创建
@@ -49,7 +55,15 @@ public class GeneratePo {
                 bos=new BufferedOutputStream(ops);
                 bos.write(("package "+packagePath+poPackage+";").replaceAll("/",".").getBytes(StandardCharsets.UTF_8));
                 bos.write(new byte[]{'\n','\n'});
-                bos.write(("public class "+tableInfo.getBeanName()+"{"+" }").getBytes(StandardCharsets.UTF_8));
+                bos.write(("public class "+tableInfo.getBeanName()+"{").getBytes(StandardCharsets.UTF_8));
+
+                for (FieldInfo fieldInfo : tableInfo.getFieldInfoList()) {
+                    bos.write(new byte[]{'\n','\t'});
+                    bos.write(("//"+fieldInfo.getFieldComment()).getBytes(StandardCharsets.UTF_8));
+                    bos.write(new byte[]{'\n','\t'});
+                    bos.write(("private "+fieldInfo.getFieldType()+" "+fieldInfo.getPropertyName()+";").getBytes(StandardCharsets.UTF_8));
+                }
+                bos.write("\n}".getBytes(StandardCharsets.UTF_8));
 
                 bos.flush(); // 刷新缓冲区，确保数据被写入文件
 
