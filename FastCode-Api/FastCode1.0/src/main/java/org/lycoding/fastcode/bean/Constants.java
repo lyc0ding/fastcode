@@ -11,7 +11,7 @@ public class Constants {
     public static final String MYBATIS_FILE_SUFFIX=".xml";
 
     public static final String JAVA_PATH="java/";
-    public static final String RESOURCE_PATH="resource/";
+    public static final String RESOURCE_PATH="resources/";
 
     public static String BASE_PATH;
     public static String PACKAGE_PATH;
