@@ -93,7 +93,4 @@ public class JavaTools {
         return false;
     }
 
-//    处理包名
-
-
 }

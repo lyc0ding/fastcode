@@ -11,9 +11,8 @@ public class GenerateXml {
     public static void execute() throws IOException {
         String basePackage= Constants.BASE_PATH;
         String resourcePath=Constants.RESOURCE_PATH;
-        String xmlSuffix=Constants.MYBATIS_FILE_SUFFIX;
         String xmlFolder=basePackage+resourcePath+"mybatis/";
-        String xmlFiles=xmlFolder+"Employer"+xmlSuffix;
+        String xmlFiles=xmlFolder+"Employer"+Constants.MYBATIS_FILE_SUFFIX;
 
         //      文件路径：判断文件夹、文件是否存在，创建文件夹、文件都需要用到
         Path xmlFolderPath= Paths.get(xmlFolder);

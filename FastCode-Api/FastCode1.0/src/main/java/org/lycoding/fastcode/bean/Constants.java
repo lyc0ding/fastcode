@@ -1,21 +1,23 @@
 package org.lycoding.fastcode.bean;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.lycoding.fastcode.utils.PropertiesUtils;
 
 public class Constants {
     public static Boolean IGNORE_TABLE_PREFIX;
     public static Boolean UPCASE_FIRST_LETTER;
-
+//    基本文件后缀
     public static final String JAVA_FILE_SUFFIX=".java";
     public static final String MYBATIS_FILE_SUFFIX=".xml";
-
+//  基本包
     public static final String JAVA_PATH="java/";
     public static final String RESOURCE_PATH="resources/";
 
     public static String BASE_PATH;
     public static String PACKAGE_PATH;
-    public static String PO_PATH;
+    public static String PO_PACKAGE;
+    public static String SOURCE_PO;
+
+    public static String AUTHOR = null;
 
     static {
 //        初始化配置文件规则
@@ -24,8 +26,11 @@ public class Constants {
 
 //        初始化包路径
         BASE_PATH=PropertiesUtils.getValue("base.path");
-        PACKAGE_PATH=PropertiesUtils.getValue("package.path");
-        PO_PATH=PropertiesUtils.getValue("package.po");
+        PACKAGE_PATH = PropertiesUtils.getValue("package.path");
+        SOURCE_PO=PropertiesUtils.getValue("package.po");
+//        相对路径包
+        PO_PACKAGE = PACKAGE_PATH.replace("/",".")+SOURCE_PO;
+        AUTHOR= PropertiesUtils.getValue("author");
     }
 
     public static final String[] SQL_DATE_TIME_TYPE=new String[]{"datetime","timestamp"};
@@ -34,5 +39,6 @@ public class Constants {
     public static final String[] SQL_STRING_TYPE=new String[]{"char","varchar","text","mediumtext","longtext"};
     public static final String[] SQL_INTEGER_TYPE=new String[]{"int","tinyint"};
     public static final String[] SQL_LONG_TYPE=new String[]{"bigint"};
+
 
 }
