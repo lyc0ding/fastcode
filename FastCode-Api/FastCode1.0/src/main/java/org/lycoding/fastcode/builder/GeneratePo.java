@@ -94,7 +94,7 @@ public class GeneratePo {
                 e.printStackTrace();
             }
         }
-//        logger.info("{}", JSONUtil.toJsonPrettyStr(tableList));
+        logger.info("{}", JSONUtil.toJsonPrettyStr(tableList));
     }
 
 }

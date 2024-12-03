@@ -64,7 +64,10 @@ public class TableBuilder {
                 tableInfo.setBeanName(beanName);
 
                 logger.info("正在获取 {} 表所有字段信息：",tableName);
-                tableInfo.setFieldInfoList(getFieldList(tableName));
+                tableInfo.setFieldInfoList(getFieldList(tableName,tableInfo));
+
+                System.out.println("tableInfo.isExistDate() = " + tableInfo.isExistDate());
+                System.out.println("tableInfo.isBigDecimal() = " + tableInfo.isBigDecimal());
 
                 tableInfoList.add(tableInfo);
             }
@@ -86,7 +89,7 @@ public class TableBuilder {
     }
 
 //    获取表中所有字段信息
-    public static List<FieldInfo> getFieldList(String tableName) throws SQLException {
+    public static List<FieldInfo> getFieldList(String tableName,TableInfo tableInfo) throws SQLException {
         PreparedStatement ps=null;
         ResultSet rs=null;
 
@@ -111,6 +114,13 @@ public class TableBuilder {
                     fieldInfo.setSqlType("varchar");
                 } else {
                     fieldInfo.setSqlType(fieldType);
+                }
+//               设置表数据存在日期、bigdecimal存在为true
+                if (JavaTools.convertJavaType(fieldType).equals("Date")) {
+                    tableInfo.setExistDate(true);
+                }
+                else if (JavaTools.convertJavaType(fieldType).equals("BigDecimal")){
+                    tableInfo.setBigDecimal(true);
                 }
                 fieldInfo.setFieldComment(fieldComment);
                 fieldInfo.setAutoIncrement(JavaTools.convertIsAutoIncrement(fieldExtra));

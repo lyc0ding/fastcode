@@ -6,7 +6,7 @@ import java.sql.Date;
  * Description:部门表
  *
  * @author:Tom
- * Mon Dec 02 17:58:00 GMT+08:00 2024
+ * Tue Dec 03 09:02:36 GMT+08:00 2024
 */
 public class Dept{
 	/** 部门id */
