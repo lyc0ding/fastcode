@@ -1,4 +1,4 @@
-package org.lycoding.mapper;
+package org.lycoding.service.impl;
 
 /**
  * Description:部门表
@@ -6,6 +6,6 @@ package org.lycoding.mapper;
  * @author:Tom
  * Fri Dec 06 16:00:34 GMT+08:00 2024
 */
-public interface DeptMapper {
+public class DeptServiceImpl {
 
 }

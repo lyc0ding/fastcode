@@ -18,10 +18,12 @@ public class Constants {
     public static String SOURCE_PO;
     public static String SOURCE_MAPPER;
     public static String SOURCE_SERVICE;
+    public static String SOURCE_CONTROLLER;
 
     public static String PO_PACKAGE;
     public static String MAPPER_PACKAGE;
     public static String SERVICE_PACKAGE;
+    public static String CONTROLLER_PACKAGE;
     public static String AUTHOR = null;
 
     static {
@@ -35,10 +37,12 @@ public class Constants {
         SOURCE_PO=PropertiesUtils.getValue("package.po");
         SOURCE_MAPPER=PropertiesUtils.getValue("package.mapper");
         SOURCE_SERVICE=PropertiesUtils.getValue("package.service");
+        SOURCE_CONTROLLER=PropertiesUtils.getValue("package.controller");
 //        相对路径包
         PO_PACKAGE = PACKAGE_PATH.replace("/",".")+SOURCE_PO;
         MAPPER_PACKAGE = PACKAGE_PATH.replace("/",".")+SOURCE_MAPPER;
         SERVICE_PACKAGE = PACKAGE_PATH.replace("/",".")+SOURCE_SERVICE;
+        CONTROLLER_PACKAGE = PACKAGE_PATH.replace("/",".")+SOURCE_CONTROLLER;
         AUTHOR= PropertiesUtils.getValue("author");
     }
 

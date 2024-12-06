@@ -62,13 +62,10 @@ public class TableBuilder {
                 tableInfo.setTableName(tableName);
                 tableInfo.setTableComment(tableComment);
                 tableInfo.setBeanName(beanName);
+                tableInfo.setObjectName(JavaTools.);
 
                 logger.info("正在获取 {} 表所有字段信息：",tableName);
                 tableInfo.setFieldInfoList(getFieldList(tableName,tableInfo));
-
-                System.out.println("tableInfo.isExistDate() = " + tableInfo.isExistDate());
-                System.out.println("tableInfo.isBigDecimal() = " + tableInfo.isBigDecimal());
-
                 tableInfoList.add(tableInfo);
             }
         } catch (Exception e) {
@@ -158,6 +155,4 @@ public class TableBuilder {
         } catch (Exception e) {
         }
     }
-
-
 }

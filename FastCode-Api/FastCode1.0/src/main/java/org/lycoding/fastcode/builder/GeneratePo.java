@@ -17,7 +17,7 @@ import java.util.List;
 
 public class GeneratePo {
     private static final Logger logger= LoggerFactory.getLogger(GeneratePo.class);
-    public static void execute() throws IOException, SQLException {
+    public static void execute(List<TableInfo> tableList) throws IOException, SQLException {
 //        java文件基本路径（肯定存在）
         final String PO_PATH=Constants.BASE_PATH+Constants.JAVA_PATH+Constants.PACKAGE_PATH+Constants.SOURCE_PO.replace(".","/");
         Path poPackagePath= Paths.get(PO_PATH);
@@ -29,13 +29,6 @@ public class GeneratePo {
 //       判断po包路径是否存在，否则创建
         if (!(Files.exists(poPackagePath)&&Files.isDirectory(poPackagePath))){
             Files.createDirectories(poPackagePath);
-        }
-
-//       创建pojo类
-        List<TableInfo> tableList = TableBuilder.getTableList();
-        if (tableList.isEmpty()){
-            logger.warn("表内容为空！！");
-            return;
         }
 
         for (TableInfo tableInfo : tableList) {
@@ -57,7 +50,7 @@ public class GeneratePo {
                 bw.write(("import java.sql.Date;"));
                 bw.newLine();
                 bw.newLine();
-                CommentsBuilder.getComment4Class(bw,tableInfo.getTableComment(),Constants.AUTHOR);
+                CommentsBuilder.getComment4Class(bw,tableInfo.getTableComment());
                 bw.write(("public class "+tableInfo.getBeanName()+"{"));
 
                 // 循环写入pojo类的属性
@@ -94,7 +87,6 @@ public class GeneratePo {
                 e.printStackTrace();
             }
         }
-        logger.info("{}", JSONUtil.toJsonPrettyStr(tableList));
     }
 
 }

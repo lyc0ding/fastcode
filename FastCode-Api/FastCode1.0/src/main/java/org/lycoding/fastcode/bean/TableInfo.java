@@ -13,9 +13,13 @@ public class TableInfo {
      */
     private String tableName;
     /**
-     * bean
+     * beanName
      */
     private String beanName;
+    /**
+     * objectName
+     */
+    private String objectName;
     /**
      * 表注释
      */
@@ -59,6 +63,14 @@ public class TableInfo {
 
     public void setBeanName(String beanName) {
         this.beanName = beanName;
+    }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
     }
 
     public String getTableComment() {

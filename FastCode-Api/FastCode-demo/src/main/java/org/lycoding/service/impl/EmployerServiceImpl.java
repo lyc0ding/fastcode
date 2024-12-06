@@ -1,4 +1,4 @@
-package org.lycoding.service;
+package org.lycoding.service.impl;
 
 /**
  * Description:员工表
@@ -6,6 +6,6 @@ package org.lycoding.service;
  * @author:Tom
  * Fri Dec 06 16:00:34 GMT+08:00 2024
 */
-public interface EmployerService {
+public class EmployerServiceImpl {
 
 }

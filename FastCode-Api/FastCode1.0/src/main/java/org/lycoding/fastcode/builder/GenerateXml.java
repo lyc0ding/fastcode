@@ -1,14 +1,16 @@
 package org.lycoding.fastcode.builder;
 
 import org.lycoding.fastcode.bean.Constants;
+import org.lycoding.fastcode.bean.TableInfo;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class GenerateXml {
-    public static void execute() throws IOException {
+    public static void execute(List<TableInfo> tableList) throws IOException {
         String basePackage= Constants.BASE_PATH;
         String resourcePath=Constants.RESOURCE_PATH;
         String xmlFolder=basePackage+resourcePath+"mybatis/";

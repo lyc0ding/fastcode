@@ -15,22 +15,22 @@
     </appender>
 
 
-    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/dayLogFile.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-                <file>${LOG_DIR}/logFile.log</file>
-                <append>true</append>
-                <encoder>
-                    <pattern>${FILE_LOG_PATTERN}</pattern>
-                </encoder>
-            </appender>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
-        </encoder>
-    </appender>
+<!--    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>${LOG_DIR}/dayLogFile.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+<!--            <maxHistory>30</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <encoder>-->
+<!--            <appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--                <file>${LOG_DIR}/logFile.log</file>-->
+<!--                <append>true</append>-->
+<!--                <encoder>-->
+<!--                    <pattern>${FILE_LOG_PATTERN}</pattern>-->
+<!--                </encoder>-->
+<!--            </appender>-->
+<!--            <pattern>${FILE_LOG_PATTERN}</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
 
     <!-- 使用root的appender-ref -->
     <logger name="com.example.Logger1" level="DEBUG" additivity="true">

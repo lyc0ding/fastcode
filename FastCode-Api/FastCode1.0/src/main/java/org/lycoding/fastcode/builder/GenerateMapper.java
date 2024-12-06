@@ -1,12 +1,9 @@
 package org.lycoding.fastcode.builder;
 
-import cn.hutool.json.JSONUtil;
 import org.lycoding.fastcode.bean.Constants;
-import org.lycoding.fastcode.bean.FieldInfo;
 import org.lycoding.fastcode.bean.TableInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,7 +16,7 @@ import java.util.List;
 
 public class GenerateMapper {
     private static final Logger logger= LoggerFactory.getLogger(GenerateMapper.class);
-    public static void execute() throws IOException, SQLException {
+    public static void execute(List<TableInfo> tableList) throws IOException, SQLException {
 //        java文件基本路径（肯定存在）
         final String MAPPER_PATH= Constants.BASE_PATH+Constants.JAVA_PATH+Constants.PACKAGE_PATH+Constants.SOURCE_MAPPER.replace(".","/");
         Path mapperPackagePath= Paths.get(MAPPER_PATH);
@@ -32,13 +29,6 @@ public class GenerateMapper {
 //       判断mapper包路径是否存在，否则创建
         if (!(Files.exists(mapperPackagePath)&&Files.isDirectory(mapperPackagePath))){
             Files.createDirectories(mapperPackagePath);
-        }
-
-//       创建Mapper类
-        List<TableInfo> tableList = TableBuilder.getTableList();
-        if (tableList.isEmpty()){
-            logger.warn("表内容为空！！");
-            return;
         }
 
         for (TableInfo tableInfo : tableList) {
@@ -57,7 +47,7 @@ public class GenerateMapper {
                 bw.write(("package "+Constants.MAPPER_PACKAGE)+";");
                 bw.newLine();
                 bw.newLine();
-                CommentsBuilder.getComment4Class(bw,tableInfo.getTableComment(),Constants.AUTHOR);
+                CommentsBuilder.getComment4Class(bw,tableInfo.getTableComment());
                 bw.write(("public interface "+tableInfo.getBeanName()+"Mapper {"));
                 bw.newLine();
                 bw.write("\n}");
@@ -68,6 +58,5 @@ public class GenerateMapper {
                 e.printStackTrace();
             }
         }
-//        logger.info("{}", JSONUtil.toJsonPrettyStr(tableList));
     }
 }
