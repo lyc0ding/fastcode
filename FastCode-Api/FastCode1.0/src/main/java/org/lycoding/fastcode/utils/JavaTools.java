@@ -25,10 +25,10 @@ public class JavaTools {
             for (int i = 0; i < tableName.length(); i++) {
                 if (tableName.charAt(i)=='_'){
                     for(int j=i+1;j<tableName.length();j++){
-                        buffer.append(tableName.charAt(j));
-                    }
-                    break;
+                    buffer.append(tableName.charAt(j));
                 }
+                break;
+            }
             }
             buffer.append(tableName);
         }else {
@@ -91,6 +91,12 @@ public class JavaTools {
             return true;
         }
         return false;
+    }
+
+    public static void main(String[] args) {
+        String beanName=JavaTools.tableNameToBeanName(
+                "chat_message", false,Constants.UPCASE_FIRST_LETTER);
+        System.out.println("beanName = " + beanName);
     }
 
 }

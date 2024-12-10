@@ -56,13 +56,13 @@ public class TableBuilder {
                 String beanName=tableName;
 
 //                忽略表名前缀：tb_ 、 sys_ ……
-                beanName=JavaTools.tableNameToBeanName(tableName, Constants.IGNORE_TABLE_PREFIX,Constants.UPCASE_FIRST_LETTER);;
+                beanName=JavaTools.tableNameToBeanName(tableName, false,Constants.UPCASE_FIRST_LETTER);
 
                 TableInfo tableInfo = new TableInfo();
                 tableInfo.setTableName(tableName);
                 tableInfo.setTableComment(tableComment);
                 tableInfo.setBeanName(beanName);
-                tableInfo.setObjectName(JavaTools.);
+                tableInfo.setObjectName(JavaTools.convertUnderscoreToCamelCase(tableName));
 
                 logger.info("正在获取 {} 表所有字段信息：",tableName);
                 tableInfo.setFieldInfoList(getFieldList(tableName,tableInfo));

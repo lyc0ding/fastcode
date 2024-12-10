@@ -47,23 +47,31 @@ public class GenerateController {
             try{
                 writer = new FileWriter(beanPath.toString(),false);
                 bw = new BufferedWriter(writer);
-                bw.write(("package "+Constants.CONTROLLER_PACKAGE)+";");
+                bw.write(("package "+Constants.CONTROLLER_PACKAGE)+";");//包名
                 bw.newLine();
                 bw.newLine();
-                CommentsBuilder.getComment4Class(bw,tableInfo.getTableComment());
-                bw.write("\t@RestController");
+                ImportPackage.import4Controller(bw);//插入注解
                 bw.newLine();
-                bw.write("\t@RequestMapping(value = \"/+"+tableInfo.getTableName()+"\")");
+                CommentsBuilder.getComment4Class(bw,tableInfo.getTableComment());//类注释
+                bw.write("\t@RestController");//不找视图
+                bw.newLine();
+                bw.write("@RequestMapping(value = \"/"+tableInfo.getObjectName()+"\")");
                 bw.newLine();
                 bw.write(("public class "+tableInfo.getBeanName()+"Controller {"));
                 bw.newLine();
-                bw.write("\t@Autowired");
+                bw.write("@Autowired");
                 bw.newLine();
-                bw.write("\tprivate "+tableInfo.getBeanName()+"Service "+tableInfo.getTableName()+";");
+                String serviceName=tableInfo.getObjectName()+"Service";  //对应sevice名称
+                bw.write("\tprivate "+tableInfo.getBeanName()+"Service "+serviceName+";");
                 bw.newLine();
-                CommentsBuilder.getComment4Methods(bw,"新增");
-                bw.write("\tpublic Object insert"+" ("+tableInfo.getBeanName() +" "+ tableInfo.getObjectName()+"){");
-
+                CommentsBuilder.getComment4Methods(bw,"新增");//新增方法注解
+                bw.write("\t@PostMapping( \"\")");
+                bw.newLine();
+                bw.write("\tpublic Object insert"+" ("+tableInfo.getBeanName() +" "+tableInfo.getObjectName()+"){");
+                bw.newLine();
+                bw.write("\t\t"+serviceName+"."+"insert( "+tableInfo.getObjectName()+");");//调用service方法
+                bw.newLine();
+                bw.write("\t}");
                 bw.write("\n}");
 
                 bw.flush(); // 刷新缓冲区，确保数据被写入文件
