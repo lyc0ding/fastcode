@@ -25,7 +25,7 @@ public class TableInfo {
      */
     private String tableComment;
     /**
-     * 表参数
+     * 表参数:实体类
      */
     private String beanParamName;
     /**
@@ -48,6 +48,27 @@ public class TableInfo {
      * 是否有bigDecimal类型
      */
     private boolean isBigDecimal;
+
+    /**
+     * controller类名
+     * @return
+     */
+    private String controllerName;
+    /**
+     * service接口名
+     * @return
+     */
+    private String serviceName;
+    /**
+     * service实现类名
+     * @return
+     */
+    private String serviceImplName;
+    /**
+     * mapper接口名
+     * @return
+     */
+    private String mapperName;
 
     public String getTableName() {
         return tableName;
@@ -127,6 +148,38 @@ public class TableInfo {
 
     public void setBigDecimal(boolean bigDecimal) {
         isBigDecimal = bigDecimal;
+    }
+
+    public String getControllerName() {
+        return controllerName;
+    }
+
+    public void setControllerName(String controllerName) {
+        this.controllerName = controllerName;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public String getServiceImplName() {
+        return serviceImplName;
+    }
+
+    public void setServiceImplName(String serviceImplName) {
+        this.serviceImplName = serviceImplName;
+    }
+
+    public String getMapperName() {
+        return mapperName;
+    }
+
+    public void setMapperName(String mapperName) {
+        this.mapperName = mapperName;
     }
 
     @Override

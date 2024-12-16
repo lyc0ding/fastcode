@@ -21,10 +21,10 @@ public class RunApplication {
         }
         /** 控制台输出json格式的表数据 */
 //        logger.info("{}", JSONUtil.toJsonPrettyStr(tableList));
-//        GenerateMapper.execute(tableList);
-//        GenerateService.execute(tableList);
+        GenerateMapper.execute(tableList);
+        GenerateService.execute(tableList);
         GenerateController.execute(tableList);
-//        GeneratePo.execute(tableList);
-//        GenerateXml.execute(tableList);
+        GeneratePo.execute(tableList);
+        GenerateXml.execute(tableList);
     }
 }

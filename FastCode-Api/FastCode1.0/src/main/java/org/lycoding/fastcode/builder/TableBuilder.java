@@ -62,6 +62,10 @@ public class TableBuilder {
                 tableInfo.setTableName(tableName);
                 tableInfo.setTableComment(tableComment);
                 tableInfo.setBeanName(beanName);
+                tableInfo.setControllerName(beanName+"Controller");
+                tableInfo.setServiceName(beanName+"Service");
+                tableInfo.setServiceImplName(beanName+"ServiceImpl");
+                tableInfo.setMapperName(beanName+"Mapper");
                 tableInfo.setObjectName(JavaTools.convertUnderscoreToCamelCase(tableName));
 
                 logger.info("正在获取 {} 表所有字段信息：",tableName);

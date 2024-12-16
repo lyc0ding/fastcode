@@ -1,0 +1,73 @@
+package org.lycoding.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.lycoding.service.SysUserService;
+import org.lycoding.entity.po.SysUser;
+
+/**
+* @description 用户信息表
+*
+* @author Tom
+* @date 2024-12-16
+**/
+@RestController
+@RequestMapping(value = "/sysUser")
+public class SysUserController{
+	@Autowired
+	private SysUserService sysUserService;
+	/**
+	* @description 新增
+	* @author Tom
+	* @date 2024-12-16
+	**/
+	@PostMapping( "/" )
+	public Object insert (SysUser sysUser){
+		sysUserService.insert( sysUser);
+		return null;
+	}
+
+	/**
+	* @description 根据id删除
+	* @author Tom
+	* @date 2024-12-16
+	**/
+	@DeleteMapping( "/{id}" )
+	public Object deleteById ( @PathVariable Long id ){
+		sysUserService.deleteById( id );
+		return null;
+	}
+
+	/**
+	* @description 根据id查找
+	* @author Tom
+	* @date 2024-12-16
+	**/
+	@GetMapping( "/{id}" )
+	public Object getById ( @PathVariable Long id ){
+		sysUserService.getById( id );
+		return null;
+	}
+
+	/**
+	* @description 查找列表
+	* @author Tom
+	* @date 2024-12-16
+	**/
+	@GetMapping( "/list" )
+	public Object getList (){
+		sysUserService.getList();
+		return null;
+	}
+	/**
+	* @description 根据id修改
+	* @author Tom
+	* @date 2024-12-16
+	**/
+	@PutMapping( "/{id}" )
+	public Object updateById ( @PathVariable Long id ){
+		sysUserService.getById( id );
+		return null;
+	}
+
+}

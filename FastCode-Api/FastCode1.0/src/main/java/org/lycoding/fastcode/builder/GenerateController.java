@@ -35,7 +35,7 @@ public class GenerateController {
         }
 
         for (TableInfo tableInfo : tableList) {
-            Path beanPath = Paths.get(controllerPackagePath.toString()+ "/"+tableInfo.getBeanName()+"Controller" + Constants.JAVA_FILE_SUFFIX);
+            Path beanPath = Paths.get(controllerPackagePath.toString()+ "/"+tableInfo.getControllerName() + Constants.JAVA_FILE_SUFFIX);
 //            bean文件不存在则创建，否则直接将源文件覆盖
             if (!(Files.exists(beanPath))){
                 Files.createFile(beanPath);
@@ -50,30 +50,84 @@ public class GenerateController {
                 bw.write(("package "+Constants.CONTROLLER_PACKAGE)+";");//包名
                 bw.newLine();
                 bw.newLine();
-                ImportPackage.import4Controller(bw);//插入注解
+                ImportPackage.import4Controller(bw,tableInfo);//插入注解
                 bw.newLine();
                 CommentsBuilder.getComment4Class(bw,tableInfo.getTableComment());//类注释
-                bw.write("\t@RestController");//不找视图
+                bw.write("@RestController");//不找视图
                 bw.newLine();
                 bw.write("@RequestMapping(value = \"/"+tableInfo.getObjectName()+"\")");
                 bw.newLine();
-                bw.write(("public class "+tableInfo.getBeanName()+"Controller {"));
+                bw.write(("public class "+tableInfo.getControllerName()+"{"));
                 bw.newLine();
-                bw.write("@Autowired");
+                bw.write("\t@Autowired");
                 bw.newLine();
-                String serviceName=tableInfo.getObjectName()+"Service";  //对应sevice名称
-                bw.write("\tprivate "+tableInfo.getBeanName()+"Service "+serviceName+";");
+                String serviceObjectName=tableInfo.getObjectName()+"Service";  //对应sevice名称
+                bw.write("\tprivate "+tableInfo.getServiceName()+" "+serviceObjectName+";");
                 bw.newLine();
+                /* 新增方法 */
                 CommentsBuilder.getComment4Methods(bw,"新增");//新增方法注解
-                bw.write("\t@PostMapping( \"\")");
+                bw.write("\t@PostMapping( \"/\" )");
                 bw.newLine();
                 bw.write("\tpublic Object insert"+" ("+tableInfo.getBeanName() +" "+tableInfo.getObjectName()+"){");
                 bw.newLine();
-                bw.write("\t\t"+serviceName+"."+"insert( "+tableInfo.getObjectName()+");");//调用service方法
+                bw.write("\t\t"+serviceObjectName+"."+"insert( "+tableInfo.getObjectName()+");");//调用service方法
+                bw.newLine();
+                bw.write("\t\treturn null;");
                 bw.newLine();
                 bw.write("\t}");
+                bw.newLine();
+                bw.newLine();
+                /* 根据id删除 */
+                CommentsBuilder.getComment4Methods(bw,"根据id删除");
+                bw.write("\t@DeleteMapping( \"/{id}\" )");
+                bw.newLine();
+                bw.write("\tpublic Object deleteById"+" ( @PathVariable Long id ){");
+                bw.newLine();
+                bw.write("\t\t"+serviceObjectName+"."+"deleteById( id );");//调用service方法
+                bw.newLine();
+                bw.write("\t\treturn null;");
+                bw.newLine();
+                bw.write("\t}");
+                bw.newLine();
+                bw.newLine();
+                /* 根据id查找 */
+                CommentsBuilder.getComment4Methods(bw,"根据id查找");
+                bw.write("\t@GetMapping( \"/{id}\" )");
+                bw.newLine();
+                bw.write("\tpublic Object getById"+" ( @PathVariable Long id ){");
+                bw.newLine();
+                bw.write("\t\t"+serviceObjectName+"."+"getById( id );");//调用service方法
+                bw.newLine();
+                bw.write("\t\treturn null;");
+                bw.newLine();
+                bw.write("\t}");
+                bw.newLine();
+                bw.newLine();
+                /* 查找列表 */
+                CommentsBuilder.getComment4Methods(bw,"查找列表");
+                bw.write("\t@GetMapping( \"/list\" )");
+                bw.newLine();
+                bw.write("\tpublic Object getList"+" (){");
+                bw.newLine();
+                bw.write("\t\t"+serviceObjectName+"."+"getList();");//调用service方法
+                bw.newLine();
+                bw.write("\t\treturn null;");
+                bw.newLine();
+                bw.write("\t}");
+                bw.newLine();
+                /* 根据id修改 */
+                CommentsBuilder.getComment4Methods(bw,"根据id修改");
+                bw.write("\t@PutMapping( \"/{id}\" )");
+                bw.newLine();
+                bw.write("\tpublic Object updateById"+" ( @PathVariable Long id ){");
+                bw.newLine();
+                bw.write("\t\t"+serviceObjectName+"."+"getById( id );");//调用service方法
+                bw.newLine();
+                bw.write("\t\treturn null;");
+                bw.newLine();
+                bw.write("\t}");
+                bw.newLine();
                 bw.write("\n}");
-
                 bw.flush(); // 刷新缓冲区，确保数据被写入文件
 
             }catch (Exception e){

@@ -46,11 +46,41 @@ public class GenerateMapper {
                 bw = new BufferedWriter(writer);
                 bw.write(("package "+Constants.MAPPER_PACKAGE)+";");
                 bw.newLine();
+                ImportPackage.import4Mapper(bw,tableInfo);
+                bw.newLine();
                 bw.newLine();
                 CommentsBuilder.getComment4Class(bw,tableInfo.getTableComment());
                 bw.write(("public interface "+tableInfo.getBeanName()+"Mapper {"));
                 bw.newLine();
-                bw.write("\n}");
+                bw.newLine();
+
+                /* 新增方法 */
+                CommentsBuilder.getComment4Methods(bw,"新增");//新增方法注解
+                bw.write("\tpublic Object insert"+" ("+tableInfo.getBeanName() +" "+tableInfo.getObjectName()+");");
+                bw.newLine();
+                bw.newLine();
+                /* 根据id删除 */
+                CommentsBuilder.getComment4Methods(bw,"根据id删除");
+                bw.write("\tpublic Object deleteById"+" ( Long id );");
+                bw.newLine();
+                bw.newLine();
+                /* 根据id查找 */
+                CommentsBuilder.getComment4Methods(bw,"根据id查找");
+                bw.write("\tpublic Object getById"+" ( Long id );");
+                bw.newLine();
+                bw.newLine();
+                /* 查找列表 */
+                CommentsBuilder.getComment4Methods(bw,"查找列表");
+                bw.write("\tpublic Object getList"+" ();");
+                bw.newLine();
+                bw.newLine();
+                /* 根据id修改 */
+                CommentsBuilder.getComment4Methods(bw,"根据id修改");
+                bw.write("\tpublic Object updateById"+" ( Long id );");
+                bw.newLine();
+                bw.newLine();
+                bw.write("}");
+                bw.flush(); // 刷新缓冲区，确保数据被写入文件
 
                 bw.flush(); // 刷新缓冲区，确保数据被写入文件
 
